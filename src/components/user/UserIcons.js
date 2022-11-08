@@ -8,14 +8,14 @@ import UserMenuOptions from './UserMenuOptions'
 //when logged in replace login icon with this
 const UserIcons = () => {
     useCheckToken()
-    const {state:{currentUser},dispatch} = useValue()
+    const {state:{currentUser,cart},dispatch} = useValue()
     //   anchor user menu button list
     const [anchorUserMenu, setAnchorUserMenu] = useState(null);
     return (
     <Box>
     {/* shoppingcart icon  */}
-      <IconButton size="large" color="inherit">
-        <Badge color="error" badgeContent={20}>
+      <IconButton size="large" color="inherit" onClick={()=> dispatch({type:"UPDATE_SECTION", payload:1})}>
+        <Badge color="error" badgeContent={cart?.length}>
           <ShoppingCartOutlined />
         </Badge>
       </IconButton>

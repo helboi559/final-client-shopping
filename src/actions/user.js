@@ -101,8 +101,31 @@ export const updateProfile = async (currentUser, updatedFields, dispatch) => {
   dispatch({ type: 'END_LOADING' });
 }
 
+export const fetchUsers = async(currentUser,dispatch) => {
+    // console.log(currentUser)
+    // dispatch({type:"START_LOADING"})
+    
+    const result = await fetchData(
+      {
+        url: url + '/all-users',
+        method:'GET',
+        token:currentUser.token,
+      },
+      dispatch
+    );
+    if (result) {
+    
+    console.log("usersGet",result)
+    dispatch({ type:'UPDATE_USERS', payload: result });
+    //notify user of success registration
+  }
+    // dispatch({type:"END_LOADING"})
+}
+
 //on logout
 export const logout = (dispatch) => {
   dispatch({type:'UPDATE_USER',payload:null})
+  dispatch({type:'UPDATE_USERS',payload:[]})
+
   
 }

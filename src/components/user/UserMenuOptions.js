@@ -1,6 +1,7 @@
-import { LogoutSharp, Settings } from '@mui/icons-material'
+import { Dashboard, LogoutSharp, Settings } from '@mui/icons-material'
 import { ListItemIcon, Menu, MenuItem } from '@mui/material'
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import { logout } from '../../actions/user'
 import { useValue } from '../../context/ContextProvider'
 import useCheckToken from '../hooks/useCheckToken'
@@ -16,6 +17,7 @@ const UserMenuOptions = ({anchorUserMenu, setAnchorUserMenu }) => {
     const handleLogout = () => {
         logout(dispatch)
     }
+    const navigate = useNavigate()
     return (
         <>
             <Menu
@@ -32,6 +34,12 @@ const UserMenuOptions = ({anchorUserMenu, setAnchorUserMenu }) => {
                         <Settings fontSize='small'/>
                     </ListItemIcon>
                     My Profile
+                </MenuItem>
+                <MenuItem onClick={()=> navigate('/dashboard')}>
+                    <ListItemIcon>
+                        <Dashboard fontSize='small'/>
+                    </ListItemIcon>
+                    Dashboard
                 </MenuItem>
                 <MenuItem onClick={handleLogout}>
                     <ListItemIcon>

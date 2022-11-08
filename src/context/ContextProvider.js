@@ -12,7 +12,14 @@ const initialState = {
     currentUser:null,
     loading:false,
     alert:{open:false,severity:'info',message:''},
-    profile:{open:false, file:null , photoURL:''}
+    profile:{open:false, file:null , photoURL:''},
+    section:0,
+    products:[],
+    product:null,
+    cart:[],
+    orders:[],
+    users:[]
+    
 }
 
 const Context = createContext(initialState)
