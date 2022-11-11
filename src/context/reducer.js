@@ -23,6 +23,10 @@ const reducer = (state,action) => {
             return { ...state, product: action.payload };
         case 'UPDATE_USERS':
             return { ...state, users: action.payload };
+        case "UPDATE_DETAILS": 
+            return {...state, details:{...state.details,...action.payload}};
+        case "CLEAR_DETAILS":
+            return {...state, details:{date:'',parking:0,tolls:0},route:{origin:'',destination:'',mileage:0},updatedDrive:null };
         case 'UPDATE_CART':
             return { ...state, cart: action.payload };
         case 'ADD_TO_CART':
@@ -72,6 +76,11 @@ const reducer = (state,action) => {
             return { ...state, cart: [...state.cart, action.payload] };
         case 'UPDATE_ORDERS':
             return { ...state, orders: action.payload };
+        case "DELETE_PRODUCT":
+            return {
+                ...state,
+                products: state.products.filter((product) => product._id !== action.payload),
+            };
         default:
             throw new Error('No action matched!')
     }

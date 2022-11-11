@@ -122,6 +122,18 @@ export const fetchUsers = async(currentUser,dispatch) => {
     // dispatch({type:"END_LOADING"})
 }
 
+export const updateStatus = (updatedFields, userId, dispatch, currentUser) => {
+  return fetchData(
+    {
+      url: `${url}/update-status/${userId}`,
+      method: 'PATCH',
+      token: currentUser.token,
+      body: updatedFields,
+    },
+    dispatch
+  );
+};
+
 //on logout
 export const logout = (dispatch) => {
   dispatch({type:'UPDATE_USER',payload:null})

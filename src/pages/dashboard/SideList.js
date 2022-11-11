@@ -11,7 +11,7 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import List from '@mui/material/List';
 import { useValue } from "../../context/ContextProvider";
-import { Dashboard, Inventory, LogoutSharp,Reorder } from "@mui/icons-material";
+import { Dashboard, Inventory, LogoutSharp,PeopleAlt,PlaylistAdd,Reorder } from "@mui/icons-material";
 import { logout } from "../../actions/user";
 import { Routes, useNavigate , Route } from "react-router-dom";
 import useCheckToken from '../../components/hooks/useCheckToken'
@@ -19,6 +19,8 @@ import Main from "./main/Main";
 import Products from "./products/Products";
 import MyOrders from './carts/MyOrders'
 import isAdmin from "./utils/isAdmin";
+import Users from "./users/Users";
+import AddProduct from "./products/AddProduct";
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -76,7 +78,9 @@ const SideList = ({open,setOpen}) => {
   const navigate = useNavigate()
   const list = useMemo(() => [
     ...isAdmin(currentUser) ? [
-      {title:"Products",icon:<Inventory/>, link:"products",component:<Products {...{setSelectedLink,link:'products'}}/>}
+      {title:"Products",icon:<Inventory/>, link:"products",component:<Products {...{setSelectedLink,link:'products'}}/>},
+      {title:"Users",icon:<PeopleAlt/>, link:"users",component:<Users {...{setSelectedLink,link:'users'}}/>},
+      {title:"Add Product",icon:<PlaylistAdd/>, link:"add-product",component:<AddProduct {...{setSelectedLink,link:'add-product'}}/>}
     ] : [],
 
     {title:"Main",icon:<Dashboard/>, link:"",component:<Main {...{setSelectedLink,link:''}}/>},
@@ -98,6 +102,8 @@ const SideList = ({open,setOpen}) => {
         <Divider />
         <List>
           {list.map((item) => (
+            <Tooltip title={item.title} key={item.title} placement="right">
+
             <ListItem key={item.title} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
                 sx={{
@@ -120,6 +126,7 @@ const SideList = ({open,setOpen}) => {
                 <ListItemText primary={item.title} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
+            </Tooltip>
           ))}
         </List>
         <Divider />

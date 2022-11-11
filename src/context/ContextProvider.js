@@ -13,6 +13,7 @@ const initialState = {
     loading:false,
     alert:{open:false,severity:'info',message:''},
     profile:{open:false, file:null , photoURL:''},
+    details:{title:"",description:"",price:"",category:"",image:"",rating:{rate:0,count:0}},
     section:0,
     products:[],
     product:null,
