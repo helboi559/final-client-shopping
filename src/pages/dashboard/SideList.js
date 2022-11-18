@@ -77,15 +77,15 @@ const SideList = ({open,setOpen}) => {
   const [selectedLink, setSelectedLink] = useState('')
   const navigate = useNavigate()
   const list = useMemo(() => [
-    ...isAdmin(currentUser) ? [
+       {title:"Main",icon:<Dashboard/>, link:"",component:<Main {...{setSelectedLink,link:''}}/>},
+      // {title:"My Orders", icon:<Reorder/>, link:"my-orders",component:<MyOrders {...{setSelectedLink,link:'my-orders'}}/>},
+
+      ...isAdmin(currentUser) ? [
       {title:"Products",icon:<Inventory/>, link:"products",component:<Products {...{setSelectedLink,link:'products'}}/>},
       {title:"Users",icon:<PeopleAlt/>, link:"users",component:<Users {...{setSelectedLink,link:'users'}}/>},
       {title:"Add Product",icon:<PlaylistAdd/>, link:"add-product",component:<AddProduct {...{setSelectedLink,link:'add-product'}}/>}
     ] : [],
 
-    {title:"Main",icon:<Dashboard/>, link:"",component:<Main {...{setSelectedLink,link:''}}/>},
-    {title:"My Orders", icon:<Reorder/>, link:"my-orders",component:<MyOrders {...{setSelectedLink,link:'my-orders'}}/>},
-    
   ], []);
   const handleLogout = () => {
         logout(dispatch)

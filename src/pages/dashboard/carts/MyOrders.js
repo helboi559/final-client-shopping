@@ -1,11 +1,19 @@
 import React, { useEffect } from 'react'
+import { fetchOrders } from '../../../actions/carts'
+import { useValue } from '../../../context/ContextProvider'
+
 
 const MyOrders = ({setSelectedLink,Link}) => {
-    useEffect(() => {
+  const {state:{ordersAdmin,currentUser},dispatch} = useValue()
+  useEffect(() => {
         setSelectedLink(Link)
+        if (ordersAdmin.length === 0) {
+          fetchOrders(currentUser,dispatch)
+        }
     }, [])
+    console.log("ordersAdmin",ordersAdmin)
     return (
-    <div>MyOrders</div>
+    <div>WIP</div>
   )
 }
 

@@ -27,3 +27,12 @@ export const fetchMyOrders = async (currentUser, dispatch) => {
 
 
 }
+
+export const fetchOrders = async (currentUser, dispatch) => {
+    const result = await fetchData(
+        {url:url+"/all-orders",method:'GET',token:currentUser?.token},dispatch)
+    if (result) {
+        dispatch({type:"UPDATE_ORDERS_ADMIN",payload:result})
+        
+    }
+}

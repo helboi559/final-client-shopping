@@ -56,7 +56,7 @@ const Product = () => {
           
             <SwiperSlide >
               <div className="swiper-zoom-container">
-                <img src={product?.image} alt="room" />
+                <img src={product?.image} alt="product" />
               </div>
             </SwiperSlide>
 

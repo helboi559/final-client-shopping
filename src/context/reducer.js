@@ -76,6 +76,8 @@ const reducer = (state,action) => {
             return { ...state, cart: [...state.cart, action.payload] };
         case 'UPDATE_ORDERS':
             return { ...state, orders: action.payload };
+        case 'UPDATE_ORDERS_ADMIN':
+            return { ...state, ordersAdmin: action.payload };
         case "DELETE_PRODUCT":
             return {
                 ...state,

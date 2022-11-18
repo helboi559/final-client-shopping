@@ -39,7 +39,7 @@ export const deleteProduct = async (product,currentUser,dispatch) => {
   );
   if (result) {
     dispatch({type:"UPDATE_ALERT",payload:{open:true,severity:'success',message:'Product deleted successfully'}})
-
+    console.log('deleteProduct',result)
     dispatch({ type:'DELETE_PRODUCT', payload: result._id });
     //notify user of success registration
   }

@@ -85,6 +85,7 @@ const UserProducts = () => {
                       mr:'5px'
                     }}
                     variant='contained'
+                    color='secondary'
                     onClick={() => dispatch({ type: 'ADD_TO_CART', payload: product })}
                   >
                     <AddShoppingCartIcon/>

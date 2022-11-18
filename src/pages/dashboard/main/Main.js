@@ -1,19 +1,26 @@
 import { FolderShared, Group, Inventory2, MapsHomeWork } from '@mui/icons-material'
 import { Avatar, Box, Divider, List, ListItem, ListItemAvatar, ListItemText, Paper, Typography } from '@mui/material'
 import React, { useEffect } from 'react'
+import { fetchOrders } from '../../../actions/carts'
 import { fetchProducts } from '../../../actions/products'
 import { fetchUsers } from '../../../actions/user'
 import { useValue } from '../../../context/ContextProvider'
+import OrdersChart from './OrdersChart'
+import ProductsCostPie from './ProductsCostPie'
+import moment from 'moment'
 
 const Main = ({setSelectedLink,link}) => {
-    const {state:{users,products,orders,currentUser},dispatch} = useValue()
+    const {state:{users,products,ordersAdmin,currentUser},dispatch} = useValue()
     useEffect(() => {
         setSelectedLink(link)
-        // if (users.length === 0) {
-        //     fetchUsers(currentUser,dispatch)
-        // }
+        if (users.length === 0) {
+            fetchUsers(currentUser,dispatch)
+        }
         if (products.length === 0) {
             fetchProducts(dispatch)
+        }
+        if (ordersAdmin.length === 0) {
+          fetchOrders(currentUser,dispatch)
         }
     }, [])
     return (
@@ -27,35 +34,10 @@ const Main = ({setSelectedLink,link}) => {
         flexDirection: 'column',
       }}
       >
-         <Paper elevation={3} sx={{ p: 3 }}>
-        <Typography variant="h4">Total Store Inventory</Typography>
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <Inventory2 sx={{ height: 100, width: 100, opacity: 0.3, mr: 1 }} />
-          <Typography variant="h4">{products.length}</Typography>
-        </Box>
-      </Paper>
-      <Paper elevation={3} sx={{ p: 3 }}>
-        <Typography variant="h4">Total Orders Placed</Typography>
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <FolderShared sx={{ height: 100, width: 100, opacity: 0.3, mr: 1 }} />
-          <Typography variant="h4">{orders.length}</Typography>
-        </Box>
-      </Paper>
-          <Paper elevation={3} sx={{ p: 2, gridColumn: 3, gridRow: '1/4' }}>
+        
+        <Paper elevation={3} sx={{ p: 2, gridColumn: 3, gridRow: '1/4' }}>
         <Box>
-          <Typography>Recent Users</Typography>
+          <Typography>Recentl Added Users</Typography>
           <List>
             {users.slice(0, 4).map((user, i) => (
               <Box key={user._id}>
@@ -65,9 +47,7 @@ const Main = ({setSelectedLink,link}) => {
                   </ListItemAvatar>
                   <ListItemText
                     primary={user?.name}
-                    // secondary={`Time Created: ${moment(user?.createdAt).format(
-                    //   'YYYY-MM-DD H:mm:ss'
-                    // )}`}
+                    secondary={user?.email}
                   />
                 </ListItem>
                 {i !== 3 && <Divider variant="inset" />}
@@ -77,7 +57,7 @@ const Main = ({setSelectedLink,link}) => {
         </Box>
         <Divider sx={{ mt: 3, mb: 3, opacity: 0.7 }} />
         <Box>
-          <Typography>Recently added Items</Typography>
+          <Typography>Recently added Products</Typography>
           <List>
             {products.slice(0, 4).map((product, i) => (
               <Box key={product._id}>
@@ -91,7 +71,7 @@ const Main = ({setSelectedLink,link}) => {
                   </ListItemAvatar>
                   <ListItemText
                     primary={product?.title}
-                    // secondary={`Added: ${moment(room?.createdAt).fromNow()}`}
+                    secondary={product.price}
                   />
                 </ListItem>
                 {i !== 3 && <Divider variant="inset" />}
@@ -100,6 +80,45 @@ const Main = ({setSelectedLink,link}) => {
           </List>
         </Box>
       </Paper>
+      <Paper
+      elevation={3}
+      sx={{p:2,gridColumn:"1/3"}}
+      >
+        <ProductsCostPie/>
+      </Paper>
+       <Paper elevation={3} sx={{ p: 3 }}>
+        <Typography variant="h4"> Number of Products</Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <Inventory2 sx={{ height: 100, width: 100, opacity: 0.3, mr: 1 }} />
+          <Typography variant="h4">{products.length}</Typography>
+        </Box>
+      </Paper>
+      <Paper elevation={3} sx={{ p: 3 }}>
+        <Typography variant="h4">Orders placed by customers</Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <FolderShared sx={{ height: 100, width: 100, opacity: 0.3, mr: 1 }} />
+          <Typography variant="h4">{ordersAdmin.length}</Typography>
+        </Box>
+      </Paper>
+       <Paper
+      elevation={3}
+      sx={{p:2,gridColumn:"1/3"}}
+      >
+        <OrdersChart/>
+      </Paper>
+      
       </Box>
   )
 }
